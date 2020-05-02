@@ -6,5 +6,5 @@ import (
 )
 
 func (server *Server) Home(w http.ResponseWriter, r *http.Request)  {
-	responses.JSON(w, http.StatusOK, "API GO BLOG")
+	responses.JSON(w, http.StatusOK, true,"API GO BLOG")
 }
