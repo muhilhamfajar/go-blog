@@ -27,6 +27,10 @@ func (u *User) Prepare()  {
 	u.UpdatedAt = time.Now()
 }
 
+func (u *User) ValidatePassword (hashedPassword, password string) error {
+	return bcrypt.CompareHashAndPassword([]byte(hashedPassword), []byte(password))
+}
+
 func Hash(password string) ([]byte, error) {
 	return bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
 }
@@ -89,11 +93,6 @@ func (u *User) Validate(action string) error {
 func (u *User) SaveUser(db *gorm.DB) (*User, error) {
 	var err error
 
-	err = u.BeforeSave()
-	if err != nil {
-		return nil, err
-	}
-
 	err = db.Debug().Create(&u).Error
 	if	err != nil {
 		return nil, err
@@ -121,4 +120,15 @@ func (u *User) FindByUserID(db *gorm.DB, uid uint32) (*User, error) {
 		return nil, err
 	}
 	return u, nil
+}
+
+func (u *User) GetUserByEmail(db *gorm.DB, email string) (*User, error) {
+	var err error
+
+	err = db.Debug().Model(&u).Where("email = ?", email).Take(&u).Error
+	if err != nil {
+		return nil, err
+	}
+
+	return u,nil
 }
