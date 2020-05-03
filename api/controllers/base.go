@@ -5,7 +5,7 @@ import (
 	"github.com/gorilla/mux"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
-	"go-blog/api/models"
+	"github.com/muhilhamfajar/go-blog/api/models"
 	"log"
 	"net/http"
 )

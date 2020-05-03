@@ -1,7 +1,7 @@
 package controllers
 
 import (
-	"go-blog/api/responses"
+	"github.com/muhilhamfajar/go-blog/api/responses"
 	"net/http"
 )
 

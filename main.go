@@ -1,6 +1,8 @@
 package main
 
-import "go-blog/api"
+import (
+	"github.com/muhilhamfajar/go-blog/api"
+)
 
 func main()  {
 	api.Run()

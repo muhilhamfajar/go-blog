@@ -2,7 +2,7 @@ package api
 
 import (
 	"github.com/joho/godotenv"
-	"go-blog/api/controllers"
+	"github.com/muhilhamfajar/go-blog/api/controllers"
 	"log"
 	"os"
 )
