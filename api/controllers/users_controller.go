@@ -3,11 +3,13 @@ package controllers
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/gorilla/mux"
 	"go-blog/api/models"
 	"go-blog/api/responses"
 	"go-blog/api/utils/formaterror"
 	"io/ioutil"
 	"net/http"
+	"strconv"
 )
 
 func (server *Server) CreateUser(w http.ResponseWriter, r *http.Request)  {
@@ -49,4 +51,21 @@ func (server *Server) GetUsers(w http.ResponseWriter, r *http.Request)  {
 	}
 
 	responses.JSON(w, http.StatusOK, true, users)
+}
+
+func (server *Server) GetUser(w http.ResponseWriter, r *http.Request)  {
+	vars := mux.Vars(r)
+	uid, err := strconv.ParseUint(vars["id"], 10, 32)
+	if	err != nil {
+		responses.ERROR(w, http.StatusBadRequest, err)
+		return
+	}
+
+	user := models.User{}
+	userGotten, err := user.FindByUserID(server.DB, uint32(uid))
+	if err != nil {
+		responses.ERROR(w, http.StatusBadRequest,err)
+		return
+	}
+	responses.JSON(w, http.StatusOK, true, userGotten)
 }

@@ -8,4 +8,5 @@ func (server *Server) InitializeRoutes()  {
 	// User Routes
 	server.Router.HandleFunc("/users", middlewares.SetMiddlewareJson(server.GetUsers)).Methods("GET")
 	server.Router.HandleFunc("/users", middlewares.SetMiddlewareJson(server.CreateUser)).Methods("POST")
+	server.Router.HandleFunc("/users/{id}", middlewares.SetMiddlewareJson(server.GetUser)).Methods("GET")
 }
